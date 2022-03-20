@@ -1,0 +1,19 @@
+        this.USERS.forEach(reg => {
+            // if(user.token == reg.token) {
+            //     reg.id = user.id
+            //     reg.name = user.name
+            //     reg.color = user.color
+            //     reg.socket = socket
+            //     socket.join("public");
+            //     console.log("reconnected as " + user.name)
+            //     user.socket.emit("updated", {member:this._deprivateUser(reg)})
+            //     this._updateUsers()
+            // } else {
+            //     let u = new User(user)
+            //     this.USERS.push(u)
+            //     socket.join("public");
+            //     console.log("connected as " + user.name)
+            //     user.socket.emit("registered", {member:this._deprivateUser(u)})
+            //     this._updateUsers()
+            // }            
+        });
