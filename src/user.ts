@@ -32,7 +32,7 @@ export class UserManager {
     constructor(io: any){
         this.USERS = []
         this._io = io
-        setInterval((that) => {console.log(that.USERS.length)}, 1000, this)
+        //setInterval((that) => {console.log(that.USERS.length)}, 1000, this)
     }
 
     _handleConnect(socket: any,id: any, name: any, color: any, token: any) {
