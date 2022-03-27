@@ -27,28 +27,15 @@ class ChatServer {
                 this._userManager._handleConnect(socket, json.id, json.name, json.color, json.token)
             })
 
-            socket.on('private',  (json: any) => {
-                console.log("incoming message ", json)
-                this._messageManager._handlePrivateMessage(
-                    this._privateChatManager,
-                    this._userManager,
-                    json.message, 
-                    json.sender, 
-                    json.addressee
-                )
+            socket.on("offer",(dt:any)=>{
+                console.log("redirecting signal " + dt.sgn + " to " + dt.to.id + " from " + dt.from.id)
+                this._io.to(this._userManager._getUserByID(dt.to.id)?.socket.id).emit("offer",dt)
             })
 
-            socket.on('get_chat',  (json: any) => {
-                console.log("incoming chat request ", json)
-                let _sender = this._userManager._getUserByToken(json.sender)
-                let _addressee = this._userManager._getUserByID(json.addressee)
-                if(_sender == null) {console.log("sender not found, wtf how");return "sender not found, wtf how"}
-                if(_addressee == null) {console.log("addressee not found");return "addressee not found"}
-                let h = this._privateChatManager._getChatHistory(_sender,_addressee)
-                console.log("h",h);
-                if(h != null) {socket.emit("history",{messages:h}); return}
-                socket.emit("history",{messages:[]})
-                return
+            
+            socket.on("accept",(dt:any)=>{
+                console.log("redirecting accept " + dt.sgn + " to " + dt.to + " from " + dt.from)
+                this._io.to(this._userManager._getUserByID(dt.to.id)?.socket.id).emit("accept",dt)
             })
 
             socket.on("get_members",()=>{
